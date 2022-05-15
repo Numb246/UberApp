@@ -3,7 +3,7 @@ import RestaurantItem from "../../components/RestaurantItem";
 import restaurants from "../../../assets/data/restaurants.json";
 export default function HomeScreen() {
   return (
-    <View>
+    <View style={styles.page}>
       <FlatList 
       data={restaurants}
       renderItem={({item}) => {return (<RestaurantItem restaurant={item} />)}}
@@ -12,4 +12,8 @@ export default function HomeScreen() {
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  page: {
+    padding: 10,
+  }
+});
