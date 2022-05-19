@@ -22,8 +22,8 @@ const HeaderTitle = ({restaurant}) => {
 
       <Text style={styles.menuTitle}>Menu</Text>
     </View>
-  )
-}
+  );
+};
 
 
 
