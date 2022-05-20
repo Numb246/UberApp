@@ -77,8 +77,6 @@ const OrdersStackNavigator=()=>{
       <OrdersStack.Screen name="Orders" component={OrdersScreen} />
       <OrdersStack.Screen name="Order" component={OrderDetails} />
     </OrdersStack.Navigator>
-    
-
   )
 }
 export default RootNavigator;
