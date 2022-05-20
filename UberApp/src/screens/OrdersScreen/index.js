@@ -1,5 +1,5 @@
 import { View, Text, FlatList } from "react-native";
-import OrderListItem from "../../components/RestaurantItem/OrderListItem";
+import OrderListItem from "../../components/OrderListItem";
 import orders from "../../../assets/data/orders.json";
 const OrderScreen = () => {
     return (
