@@ -10,7 +10,13 @@ import OrderDetails from "./src/screens/OrderDetails";
 import {NavigationContainer}from '@react-navigation/native';
 import RootNavigator from "./src/navigation";
 
-export default function App() {
+import { Amplify } from 'aws-amplify'
+import {withAuthenticator} from 'aws-amplify-react-native'
+//cung cấp giao diện log in, sign up
+import awsconfig from './src/aws-exports'
+Amplify.configure(awsconfig)
+
+function App() {
   return (
     <NavigationContainer>
           <RootNavigator/>
@@ -19,4 +25,5 @@ export default function App() {
   );
 }
 
+export default withAuthenticator(App)
 
