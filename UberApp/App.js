@@ -13,8 +13,8 @@ import RootNavigator from "./src/navigation";
 import { Amplify } from 'aws-amplify'
 import {withAuthenticator} from 'aws-amplify-react-native'
 //cung cấp giao diện log in, sign up
-import awsconfig from './src/aws-exports'
-Amplify.configure(awsconfig)
+import config from './src/aws-exports'
+Amplify.configure({...config, Analytics: {disabled: true,}})
 
 function App() {
   return (
