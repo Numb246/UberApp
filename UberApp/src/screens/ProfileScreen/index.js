@@ -1,24 +1,64 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
-import { Button, TextInput } from 'react-native-paper'
-import { Auth } from 'aws-amplify'
+import { StyleSheet, Text, View, Button, TextInput, Alert } from 'react-native'
+import React, { useState } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Auth,DataStore } from 'aws-amplify';
+import {User} from '../../models';
+import { useAuthContext } from '../../contexts/AuthContext';
+import { useNavigation } from '@react-navigation/native';
 
 export default function ProfileScreen() {
-    const [name,setName] = useState('')
-    const [address, setAddress] = useState('')
-    const [lat, setLat] = useState('0')
-    const [lng, setLng] = useState('0')
-    
-    const onSaveHandler = () => {
+  const {dbUser}= useAuthContext();
 
+  const [name,setName] = useState(dbUser?.name ||"");
+  const [address, setAddress] = useState(dbUser?.address ||"");
+  const [lat, setLat] = useState(dbUser?.lat+ "" ||"0");
+  const [lng, setLng] = useState(dbUser?.lng+ "" ||"0");
+
+
+  const {sub, setDbUser} = useAuthContext(); 
+
+  const navigation = useNavigation();
+
+  const onSave = async () => {
+    if (dbUser){
+      await updateUser();
+    } else{
+      await createUser();
+    }    
+    navigation.goBack();
+  };
+
+  const updateUser = async () => {
+    const user =await DataStore.save(
+      User.copyOf(dbUser, (updated) =>{
+        updated.name=name;
+        updated.address=address;
+        updated.lat=parseFloat(lat);
+        updated.lng=parseFloat(lng);      
+      })
+    )
+    setDbUser(user);
+  };
+
+  const createUser= async() => {
+    try{
+      const user = await DataStore.save(new User({
+        name, 
+        address, 
+        lat: parseFloat(lat), 
+        lng: parseFloat(lng), 
+        sub,
+      })
+    );
+    setDbUser(user);
+    } catch(e){
+      Alert.alert("Error",e.message)
     }
+  }
 
-    const onSignOutHandler = () => {
-
-    }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView>
       <Text style = {styles.title}>Profile</Text>
       <View style={styles.inputContainer}>
         <TextInput
@@ -49,39 +89,29 @@ export default function ProfileScreen() {
         />
       </View>
       <Button 
-      style={styles.button}
-      onPress={onSaveHandler}>
-          SAVE
-      </Button>
+      onPress={onSave} title='Save'/>
       <Text 
       style = {{color: 'red', textAlign:'center', margin: 10}}
       onPress = {() => Auth.signOut()}
       >
           SIGN OUT
       </Text>
-    </View>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex:1,
-        flexDirection:'column'
-    },
-    inputContainer: {
-        
-    },
     title: {
         fontWeight:'bold',
         fontSize: 30,
-        marginTop: 70,
+        margin: 10,
         textAlign: 'center',
     },
     input: {
-        backgroundColor: 'white',
-        marginVertical: 15,
+      margin:10,
+      backgroundColor: 'white',
+      padding:15,
+      borderRadius:5,
     },
-    button: {
-        backgroundColor:'lightblue',
-    }
+
 })
