@@ -10,6 +10,7 @@ import OrderDetails from "./src/screens/OrderDetails";
 import {NavigationContainer}from '@react-navigation/native';
 import RootNavigator from "./src/navigation";
 
+<<<<<<< HEAD
 import { Amplify } from 'aws-amplify'
 import {withAuthenticator} from 'aws-amplify-react-native'
 //cung cấp giao diện log in, sign up
@@ -17,6 +18,9 @@ import config from './src/aws-exports'
 Amplify.configure({...config, Analytics: {disabled: true,}})
 
 function App() {
+=======
+export default function App() {
+>>>>>>> parent of 1e662c1f (Cài đặt dependencies, thêm giao diện Profile Screen)
   return (
     <NavigationContainer>
           <RootNavigator/>
@@ -25,5 +29,4 @@ function App() {
   );
 }
 
-export default withAuthenticator(App)
 
