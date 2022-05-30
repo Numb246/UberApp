@@ -3,7 +3,7 @@
   "serviceConfiguration": {
     "apiName": "UberAppVer2",
     "serviceName": "AppSync",
-    "gqlSchemaPath": "/tmp/amplify-e4382b09-069b-4638-b493-706e8b397b35/amplify/backend/api/UberAppVer2/schema.graphql",
+    "gqlSchemaPath": "/tmp/amplify-94fc7835-6036-437b-8229-3388fabf8f0d/amplify/backend/api/UberAppVer2/schema.graphql",
     "defaultAuthType": {
       "mode": "API_KEY",
       "keyDescription": "api key description",
