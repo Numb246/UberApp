@@ -106,8 +106,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "nam": {
-                    "name": "nam",
+                "name": {
+                    "name": "name",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
@@ -137,7 +137,7 @@ export const schema = {
                 "rating": {
                     "name": "rating",
                     "isArray": false,
-                    "type": "String",
+                    "type": "Float",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -175,6 +175,13 @@ export const schema = {
                         "connectionType": "HAS_MANY",
                         "associatedWith": "restaurantID"
                     }
+                },
+                "address": {
+                    "name": "address",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -308,5 +315,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "10fd8beab3ba24d7fbbaad25208d6e32"
+    "version": "9a86e6b4553991b7beed4329dc44780f"
 };

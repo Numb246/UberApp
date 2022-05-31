@@ -31,15 +31,16 @@ export declare class Dish {
 
 export declare class Restaurant {
   readonly id: string;
-  readonly nam: string;
+  readonly name: string;
   readonly deliveryFee: number;
   readonly minDeliveryTime: number;
   readonly maxDeliveryTime: number;
-  readonly rating?: string | null;
+  readonly rating?: number | null;
   readonly image: string;
   readonly lat: number;
   readonly lng: number;
   readonly Dishes?: (Dish | null)[] | null;
+  readonly address: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<Restaurant, RestaurantMetaData>);

@@ -1,7 +1,11 @@
+import { useState } from "react";
 import { StyleSheet, View, FlatList } from "react-native";
 import RestaurantItem from "../../components/RestaurantItem";
-import restaurants from "../../../assets/data/restaurants.json";
+
+
 export default function HomeScreen() {
+  const [restaurants, setRestaurants] = useState([]);
+
   return (
     <View style={styles.page}>
       <FlatList 
