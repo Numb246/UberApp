@@ -28,5 +28,4 @@ type User @model @auth(rules: [{allow: public}]) {
   lat: Float!
   lng: Float!
   sub: String!
-}
- 
+} 
