@@ -1,6 +1,13 @@
 export type AmplifyDependentResourcesAttributes = {
+    "api": {
+        "UberAppVer2": {
+            "GraphQLAPIKeyOutput": "string",
+            "GraphQLAPIIdOutput": "string",
+            "GraphQLAPIEndpointOutput": "string"
+        }
+    },
     "auth": {
-        "UberEats": {
+        "UberAppVer2": {
             "IdentityPoolId": "string",
             "IdentityPoolName": "string",
             "UserPoolId": "string",

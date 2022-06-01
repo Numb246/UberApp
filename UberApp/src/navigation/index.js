@@ -8,14 +8,23 @@ import OrdersScreen from "../screens/OrdersScreen";
 import OrderDetails from "../screens/OrderDetails";
 
 import { Foundation,FontAwesome5,MaterialIcons } from '@expo/vector-icons'; 
-import ProfileScreen from '../screens/ProfileScreen';
+import ProfileScreen from '../screens/ProfileScreen';2
+
+import { useAuthContext } from '../contexts/AuthContext';
 
 const  Stack = createNativeStackNavigator();
 
 const RootNavigator = () => {
+  const {dbUser} = useAuthContext();
     return(
     <Stack.Navigator screenOptions={{headerShown:false}}>
+      {dbUser ? (
+        // nếu db đã được định nghĩa, đã có người dùng sign up
         <Stack.Screen name="HomeTabs" component={HomeTabs}/>
+      ) : (
+        //không thì
+        <Stack.Screen name="Profile" component={ProfileScreen} />
+      )}
     </Stack.Navigator>
     );
 };
@@ -62,10 +71,7 @@ const HomeStackNavigator=()=>{
   return (
     <HomeStack.Navigator>
       <HomeStack.Screen name="Restaurants" component={HomeScreen} />
-      <HomeStack.Screen 
-      name="Restaurant" 
-      component={RestaurantDetailsScreen}
-      options= {{headerShown:false}} />
+      <HomeStack.Screen name="Restaurant" component={RestaurantDetailsScreen}/>
       <HomeStack.Screen name="Dish" component={DishDetailsScreen} />
       <HomeStack.Screen name="Basket" component={Basket} />
     </HomeStack.Navigator>

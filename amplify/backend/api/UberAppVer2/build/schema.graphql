@@ -1,0 +1,348 @@
+
+type Dish @aws_iam @aws_api_key {
+  id: ID!
+  name: String!
+  description: String
+  price: Float!
+  image: String
+  restaurantID: ID!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type Restaurant @aws_iam @aws_api_key {
+  id: ID!
+  name: String!
+  deliveryFee: Float!
+  minDeliveryTime: Float!
+  maxDeliveryTime: Float!
+  rating: String
+  image: String!
+  lat: Float!
+  lng: Float!
+  Dishes(filter: ModelDishFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelDishConnection
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type User @aws_iam @aws_api_key {
+  id: ID!
+  name: String!
+  address: String!
+  lat: Float!
+  lng: Float!
+  sub: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelDishConnection @aws_api_key @aws_iam {
+  items: [Dish]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelDishFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  description: ModelStringInput
+  price: ModelFloatInput
+  image: ModelStringInput
+  restaurantID: ModelIDInput
+  and: [ModelDishFilterInput]
+  or: [ModelDishFilterInput]
+  not: ModelDishFilterInput
+}
+
+type Query {
+  getDish(id: ID!): Dish @aws_api_key @aws_iam
+  listDishes(filter: ModelDishFilterInput, limit: Int, nextToken: String): ModelDishConnection @aws_api_key @aws_iam
+  syncDishes(filter: ModelDishFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelDishConnection @aws_api_key @aws_iam
+  getRestaurant(id: ID!): Restaurant @aws_api_key @aws_iam
+  listRestaurants(filter: ModelRestaurantFilterInput, limit: Int, nextToken: String): ModelRestaurantConnection @aws_api_key @aws_iam
+  syncRestaurants(filter: ModelRestaurantFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelRestaurantConnection @aws_api_key @aws_iam
+  getUser(id: ID!): User @aws_api_key @aws_iam
+  listUsers(filter: ModelUserFilterInput, limit: Int, nextToken: String): ModelUserConnection @aws_api_key @aws_iam
+  syncUsers(filter: ModelUserFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelUserConnection @aws_api_key @aws_iam
+}
+
+input ModelDishConditionInput {
+  name: ModelStringInput
+  description: ModelStringInput
+  price: ModelFloatInput
+  image: ModelStringInput
+  restaurantID: ModelIDInput
+  and: [ModelDishConditionInput]
+  or: [ModelDishConditionInput]
+  not: ModelDishConditionInput
+}
+
+input CreateDishInput {
+  id: ID
+  name: String!
+  description: String
+  price: Float!
+  image: String
+  restaurantID: ID!
+  _version: Int
+}
+
+input UpdateDishInput {
+  id: ID!
+  name: String
+  description: String
+  price: Float
+  image: String
+  restaurantID: ID
+  _version: Int
+}
+
+input DeleteDishInput {
+  id: ID!
+  _version: Int
+}
+
+type Mutation {
+  createDish(input: CreateDishInput!, condition: ModelDishConditionInput): Dish @aws_api_key @aws_iam
+  updateDish(input: UpdateDishInput!, condition: ModelDishConditionInput): Dish @aws_api_key @aws_iam
+  deleteDish(input: DeleteDishInput!, condition: ModelDishConditionInput): Dish @aws_api_key @aws_iam
+  createRestaurant(input: CreateRestaurantInput!, condition: ModelRestaurantConditionInput): Restaurant @aws_api_key @aws_iam
+  updateRestaurant(input: UpdateRestaurantInput!, condition: ModelRestaurantConditionInput): Restaurant @aws_api_key @aws_iam
+  deleteRestaurant(input: DeleteRestaurantInput!, condition: ModelRestaurantConditionInput): Restaurant @aws_api_key @aws_iam
+  createUser(input: CreateUserInput!, condition: ModelUserConditionInput): User @aws_api_key @aws_iam
+  updateUser(input: UpdateUserInput!, condition: ModelUserConditionInput): User @aws_api_key @aws_iam
+  deleteUser(input: DeleteUserInput!, condition: ModelUserConditionInput): User @aws_api_key @aws_iam
+}
+
+type Subscription {
+  onCreateDish: Dish @aws_subscribe(mutations: ["createDish"]) @aws_api_key @aws_iam
+  onUpdateDish: Dish @aws_subscribe(mutations: ["updateDish"]) @aws_api_key @aws_iam
+  onDeleteDish: Dish @aws_subscribe(mutations: ["deleteDish"]) @aws_api_key @aws_iam
+  onCreateRestaurant: Restaurant @aws_subscribe(mutations: ["createRestaurant"]) @aws_api_key @aws_iam
+  onUpdateRestaurant: Restaurant @aws_subscribe(mutations: ["updateRestaurant"]) @aws_api_key @aws_iam
+  onDeleteRestaurant: Restaurant @aws_subscribe(mutations: ["deleteRestaurant"]) @aws_api_key @aws_iam
+  onCreateUser: User @aws_subscribe(mutations: ["createUser"]) @aws_api_key @aws_iam
+  onUpdateUser: User @aws_subscribe(mutations: ["updateUser"]) @aws_api_key @aws_iam
+  onDeleteUser: User @aws_subscribe(mutations: ["deleteUser"]) @aws_api_key @aws_iam
+}
+
+type ModelRestaurantConnection @aws_api_key @aws_iam {
+  items: [Restaurant]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelRestaurantFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  deliveryFee: ModelFloatInput
+  minDeliveryTime: ModelFloatInput
+  maxDeliveryTime: ModelFloatInput
+  rating: ModelStringInput
+  image: ModelStringInput
+  lat: ModelFloatInput
+  lng: ModelFloatInput
+  and: [ModelRestaurantFilterInput]
+  or: [ModelRestaurantFilterInput]
+  not: ModelRestaurantFilterInput
+}
+
+input ModelRestaurantConditionInput {
+  name: ModelStringInput
+  deliveryFee: ModelFloatInput
+  minDeliveryTime: ModelFloatInput
+  maxDeliveryTime: ModelFloatInput
+  rating: ModelStringInput
+  image: ModelStringInput
+  lat: ModelFloatInput
+  lng: ModelFloatInput
+  and: [ModelRestaurantConditionInput]
+  or: [ModelRestaurantConditionInput]
+  not: ModelRestaurantConditionInput
+}
+
+input CreateRestaurantInput {
+  id: ID
+  name: String!
+  deliveryFee: Float!
+  minDeliveryTime: Float!
+  maxDeliveryTime: Float!
+  rating: String
+  image: String!
+  lat: Float!
+  lng: Float!
+  _version: Int
+}
+
+input UpdateRestaurantInput {
+  id: ID!
+  name: String
+  deliveryFee: Float
+  minDeliveryTime: Float
+  maxDeliveryTime: Float
+  rating: String
+  image: String
+  lat: Float
+  lng: Float
+  _version: Int
+}
+
+input DeleteRestaurantInput {
+  id: ID!
+  _version: Int
+}
+
+type ModelUserConnection @aws_api_key @aws_iam {
+  items: [User]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelUserFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  address: ModelStringInput
+  lat: ModelFloatInput
+  lng: ModelFloatInput
+  sub: ModelStringInput
+  and: [ModelUserFilterInput]
+  or: [ModelUserFilterInput]
+  not: ModelUserFilterInput
+}
+
+input ModelUserConditionInput {
+  name: ModelStringInput
+  address: ModelStringInput
+  lat: ModelFloatInput
+  lng: ModelFloatInput
+  sub: ModelStringInput
+  and: [ModelUserConditionInput]
+  or: [ModelUserConditionInput]
+  not: ModelUserConditionInput
+}
+
+input CreateUserInput {
+  id: ID
+  name: String!
+  address: String!
+  lat: Float!
+  lng: Float!
+  sub: String!
+  _version: Int
+}
+
+input UpdateUserInput {
+  id: ID!
+  name: String
+  address: String
+  lat: Float
+  lng: Float
+  sub: String
+  _version: Int
+}
+
+input DeleteUserInput {
+  id: ID!
+  _version: Int
+}
+
