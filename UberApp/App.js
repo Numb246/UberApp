@@ -12,14 +12,23 @@ import RootNavigator from "./src/navigation";
 import {withAuthenticator} from "aws-amplify-react-native"
 import {Amplify} from 'aws-amplify'
 import config from './src/aws-exports'
+import AuthContextProvider from './src/contexts/AuthContext'
+import React from 'react'
 
-Amplify.configure(config);
+Amplify.configure({
+  ...config,
+  Analytics: {
+    disabled: true,
+  }});
 
 function App() {
   return (
     <NavigationContainer>
-          <RootNavigator/>
-          <StatusBar style="auto"/>
+      <AuthContextProvider>
+        <RootNavigator/>
+      </AuthContextProvider>
+
+      <StatusBar style="light" />
     </NavigationContainer>
   );
 }

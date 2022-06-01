@@ -8,14 +8,23 @@ import OrdersScreen from "../screens/OrdersScreen";
 import OrderDetails from "../screens/OrderDetails";
 
 import { Foundation,FontAwesome5,MaterialIcons } from '@expo/vector-icons'; 
-// import ProfileScreen from '../screens/ProfileScreen';
+import ProfileScreen from '../screens/ProfileScreen';2
+
+import { useAuthContext } from '../contexts/AuthContext';
 
 const  Stack = createNativeStackNavigator();
 
 const RootNavigator = () => {
+  const {dbUser} = useAuthContext();
     return(
     <Stack.Navigator screenOptions={{headerShown:false}}>
+      {dbUser ? (
+        // nếu db đã được định nghĩa, đã có người dùng sign up
         <Stack.Screen name="HomeTabs" component={HomeTabs}/>
+      ) : (
+        //không thì
+        <Stack.Screen name="Profile" component={ProfileScreen} />
+      )}
     </Stack.Navigator>
     );
 };
@@ -45,7 +54,7 @@ const HomeTabs =() =>{
       />
       <Tab.Screen 
         name="Profile" 
-        component={OrdersScreen} 
+        component={ProfileScreen} 
         options={
           {tabBarIcon: ({color}) => (
           <FontAwesome5 name='user-alt' size={24} color={color} />
