@@ -1,0 +1,13 @@
+{
+    "AppSyncApiName": "UberAppVer2",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "S3DeploymentBucket": "amplify-uberappver2-staging-151814-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/b972e63de4b23e333727f79113d12a43a1ac8375"
+}

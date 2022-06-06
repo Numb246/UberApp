@@ -6,19 +6,19 @@ const OrderStatus = {
   "NEW": "NEW",
   "COOKING": "COOKING",
   "READY_FOR_PICKUP": "READY_FOR_PICKUP",
-  "PICK_UP": "PICK_UP",
+  "PICKED_UP": "PICKED_UP",
   "COMPLETED": "COMPLETED"
 };
 
-const { Basket, BasketDish, Dish, OrderDish, Order, Restaurant, User } = initSchema(schema);
+const { Basket, BasketDish, Dish, Order, Restaurant, OrderDish, User } = initSchema(schema);
 
 export {
   Basket,
   BasketDish,
   Dish,
-  OrderDish,
   Order,
   Restaurant,
+  OrderDish,
   User,
   OrderStatus
 };

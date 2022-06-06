@@ -1,0 +1,92 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-uberappver2-staging-151814-authRole",
+      "UnauthRoleArn": "arn:aws:iam::551613965675:role/amplify-uberappver2-staging-151814-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::551613965675:role/amplify-uberappver2-staging-151814-authRole",
+      "Region": "eu-west-1",
+      "DeploymentBucketName": "amplify-uberappver2-staging-151814-deployment",
+      "UnauthRoleName": "amplify-uberappver2-staging-151814-unauthRole",
+      "StackName": "amplify-uberappver2-staging-151814",
+      "StackId": "arn:aws:cloudformation:eu-west-1:551613965675:stack/amplify-uberappver2-staging-151814/10811f90-dd07-11ec-91e9-02bea95e2581",
+      "AmplifyAppId": "d3506um1suw35e"
+    }
+  },
+  "api": {
+    "UberAppVer2": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 30,
+              "description": "api key description"
+            }
+          },
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AWS_IAM"
+            }
+          ]
+        },
+        "GraphQLAPIIdOutput": "37v5nbpfobehvb7f34uit4ckdq",
+        "GraphQLAPIEndpointOutput": "https://j3vczmmburatfpumtj5cystkxu.appsync-api.eu-west-1.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-v7qjsn6zfneg5mg7snd4m6idg4"
+      },
+      "lastPushTimeStamp": "2022-05-31T03:23:07.953Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-uberappver2-staging-151814-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apiUberAppVer2"
+      },
+      "lastPushDirHash": "uSmQzm0MzDp2UD5Hug32q4pp354="
+    }
+  },
+  "auth": {
+    "UberAppVer2": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "signupAttributes": [],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": [
+            "REQUIRES_LOWERCASE",
+            "REQUIRES_NUMBERS",
+            "REQUIRES_SYMBOLS",
+            "REQUIRES_UPPERCASE"
+          ]
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "output": {
+        "UserPoolId": "eu-west-1_PkfafBGeq",
+        "AppClientIDWeb": "imbpk5mfc3grv6p3vph537ur0",
+        "AppClientID": "42nev21n2ivv14oddu3ppcr4ng",
+        "IdentityPoolId": "eu-west-1:18e8ad23-1817-4911-b77a-170e9b0b26b6",
+        "UserPoolArn": "arn:aws:cognito-idp:eu-west-1:551613965675:userpool/eu-west-1_PkfafBGeq",
+        "IdentityPoolName": "testAuthIdentityPool__staging",
+        "UserPoolName": "UberAppVer2"
+      },
+      "lastPushTimeStamp": "2022-05-31T03:23:07.900Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-uberappver2-staging-151814-deployment/amplify-cfn-templates/auth/UberAppVer2-cloudformation-template.json",
+        "logicalId": "authUberAppVer2"
+      }
+    }
+  }
+}

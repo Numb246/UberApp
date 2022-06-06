@@ -9,21 +9,33 @@ import OrderDetails from "./src/screens/OrderDetails";
 
 import { NavigationContainer } from "@react-navigation/native";
 import RootNavigator from "./src/navigation";
-
-import { Amplify } from "aws-amplify";
 import { withAuthenticator } from "aws-amplify-react-native";
-//cung cấp giao diện log in, sign up
+import { Amplify } from "aws-amplify";
 import config from "./src/aws-exports";
 import AuthContextProvider from "./src/contexts/AuthContext";
-Amplify.configure({ ...config, Analytics: { disabled: true } });
+import BasketContextProvider from "./src/contexts/BasketContext";
+import OrderContextProvider from "./src/contexts/OrderContext";
+import React from "react";
+
+Amplify.configure({
+  ...config,
+  Analytics: {
+    disabled: true,
+  },
+});
 
 function App() {
   return (
     <NavigationContainer>
       <AuthContextProvider>
-        <RootNavigator />
+        <BasketContextProvider>
+          <OrderContextProvider>
+            <RootNavigator />
+          </OrderContextProvider>
+        </BasketContextProvider>
       </AuthContextProvider>
-      <StatusBar style="auto" />
+
+      <StatusBar style="light" />
     </NavigationContainer>
   );
 }
