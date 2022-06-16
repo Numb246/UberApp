@@ -4,6 +4,7 @@ import {
   View,
   Pressable,
   ActivityIndicator,
+  ScrollView,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { AntDesign } from "@expo/vector-icons";
@@ -14,7 +15,7 @@ import { useBasketContext } from "../../contexts/BasketContext";
 
 const DishDetailsScreen = () => {
   const [dish, setDish] = useState(null);
-  const [quantity, setQuatity] = useState(1);
+  const [quantity, setQuantity] = useState(1);
 
   const navigation = useNavigation();
   const route = useRoute();
@@ -29,11 +30,11 @@ const DishDetailsScreen = () => {
   };
   const onMinus = () => {
     if (quantity > 1) {
-      setQuatity(quantity - 1);
+      setQuantity(quantity - 1);
     }
   };
   const onPlus = () => {
-    setQuatity(quantity + 1);
+    setQuantity(quantity + 1);
   };
 
   const getTotal = () => {
@@ -51,19 +52,19 @@ const DishDetailsScreen = () => {
   return (
     <View style={styles.page}>
       <Text style={styles.name}>{dish.name}</Text>
-      <Text style={styles.description}>{dish.description}</Text>
+      <ScrollView><Text style={styles.description}>{dish.description}</Text></ScrollView>
       <View style={styles.separator} />
 
       <View style={styles.row}>
         <AntDesign
-          name="minuscircleo"
+          name="minuscircle"
           size={60}
           color={"black"}
           onPress={onMinus}
         />
         <Text style={styles.quantity}>{quantity}</Text>
         <AntDesign
-          name="pluscircleo"
+          name="pluscircle"
           size={60}
           color={"black"}
           onPress={onPlus}

@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, LogBox } from "react-native";
 import HomeScreen from "./src/screens/HomeScreen";
 import RestaurantDetailsScreen from "./src/screens/RestaurantDetailsScreen";
 import DishDetailsScreen from "./src/screens/DishDetailsScreen";
@@ -23,6 +23,8 @@ Amplify.configure({
     disabled: true,
   },
 });
+
+// LogBox.ignoreAllLogs();
 
 function App() {
   return (
