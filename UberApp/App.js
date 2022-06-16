@@ -24,7 +24,7 @@ Amplify.configure({
   },
 });
 
-// LogBox.ignoreAllLogs();
+LogBox.ignoreAllLogs();
 
 function App() {
   return (
