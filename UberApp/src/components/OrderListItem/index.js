@@ -23,7 +23,7 @@ const OrderListItem = ({ order }) => {
           {order.Restaurant.name}
         </Text>
         <Text style={{ marginVertical: 5 }}>3 items &#8226; $ {order.total}</Text>
-        <Text>{order.createdAt} &#8226; {order.status} </Text>
+        <Text> &#8226; {order.status} </Text>
       </View>
     </Pressable>
   );

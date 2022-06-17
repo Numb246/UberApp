@@ -17,7 +17,7 @@ const OrderDetailsHeader = ({ order }) => {
 
         <View style={styles.container}>
           <Text style={styles.title}>{order.Restaurant.name}</Text>
-          <Text style={styles.subtitle}>{order.status} &#8226; 2 days ago</Text>
+          <Text style={styles.subtitle}>{order.status} &#8226; {order.createdAt}</Text>
 
           <Text style={styles.menuTitle}>Your orders</Text>
         </View>
