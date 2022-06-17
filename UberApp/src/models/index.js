@@ -1,10 +1,6 @@
+// @ts-check
 import { initSchema } from '@aws-amplify/datastore';
 import { schema } from './schema';
-
-const TransportationModes = {
-  "DRIVING": "DRIVING",
-  "BICYCLING": "BICYCLING"
-};
 
 const OrderStatus = {
   "NEW": "NEW",
@@ -16,17 +12,22 @@ const OrderStatus = {
   "DECLINED_BY_RESTAURANT": "DECLINED_BY_RESTAURANT"
 };
 
-const { Courier, Basket, BasketDish, Dish, OrderDish, Order, Restaurant, User } = initSchema(schema);
+const TransportationModes = {
+  "DRIVING": "DRIVING",
+  "BICYCLING": "BICYCLING"
+};
+
+const { User, Order, OrderDish, Dish, Courier, Restaurant, Basket, BasketDish } = initSchema(schema);
 
 export {
+  User,
+  Order,
+  OrderDish,
+  Dish,
   Courier,
+  Restaurant,
   Basket,
   BasketDish,
-  Dish,
-  OrderDish,
-  Order,
-  Restaurant,
-  User,
-  TransportationModes,
-  OrderStatus
+  OrderStatus,
+  TransportationModes
 };

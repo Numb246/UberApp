@@ -9,6 +9,9 @@ import AuthContextProvider from "./src/contexts/AuthContext";
 import BasketContextProvider from "./src/contexts/BasketContext";
 import OrderContextProvider from "./src/contexts/OrderContext";
 
+import {LogBox} from 'react-native'
+
+LogBox.ignoreAllLogs();
 Amplify.configure({
   ...config,
   Analytics: {
