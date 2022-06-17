@@ -1,32 +1,32 @@
+import { View, Text, Image } from "react-native";
+import styles from "./styles";
 
-import { Text, View, Image,} from 'react-native'
-import React from 'react'
-import styles from './styles';
+const DEFAULT_IMAGE =
+  "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/uber-eats/restaurant1.jpeg";
 
-("");
-
-const DEFAULT_IMAGE = "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/uber-eats/restaurant1.jpeg"
-
-const HeaderTitle = ({restaurant}) => {
+const RestaurantHeader = ({ restaurant }) => {
   return (
     <View style={styles.page}>
-      <Image 
-      source={{uri: restaurant.image.startsWith('http') ? restaurant.image: DEFAULT_IMAGE}} 
-      style={styles.image}
+      <Image
+        source={{
+          uri: restaurant.image.startsWith("http")
+            ? restaurant.image
+            : DEFAULT_IMAGE,
+        }}
+        style={styles.image}
       />
+
       <View style={styles.container}>
         <Text style={styles.title}>{restaurant.name}</Text>
         <Text style={styles.subtitle}>
-              $ {restaurant.deliveryFee.toFixed(1)} &#8226; {restaurant.minDeliveryTime.toFixed(0)}-
-              {restaurant.maxDeliveryTime.toFixed(0)} minutes
+          $ {restaurant.deliveryFee.toFixed(1)} &#8226; {restaurant.minDeliveryTime}-
+          {restaurant.maxDeliveryTime} minutes
         </Text>
-      </View>
 
-      <Text style={styles.menuTitle}>Menu</Text>
+        <Text style={styles.menuTitle}>Menu</Text>
+      </View>
     </View>
   );
 };
 
-
-
-export default HeaderTitle;
+export default RestaurantHeader;

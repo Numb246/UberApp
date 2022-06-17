@@ -1,4 +1,3 @@
-// @ts-check
 import { initSchema } from '@aws-amplify/datastore';
 import { schema } from './schema';
 
@@ -16,16 +15,16 @@ const OrderStatus = {
   "ACCEPTED": "ACCEPTED"
 };
 
-const { Courier, Basket, BasketDish, Dish, Order, Restaurant, OrderDish, User } = initSchema(schema);
+const { Courier, Basket, BasketDish, Dish, OrderDish, Order, Restaurant, User } = initSchema(schema);
 
 export {
   Courier,
   Basket,
   BasketDish,
   Dish,
+  OrderDish,
   Order,
   Restaurant,
-  OrderDish,
   User,
   TransportationModes,
   OrderStatus

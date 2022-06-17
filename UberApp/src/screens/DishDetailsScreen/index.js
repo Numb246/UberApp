@@ -1,11 +1,11 @@
+import { useState, useEffect } from "react";
 import {
-  StyleSheet,
-  Text,
   View,
+  Text,
+  StyleSheet,
   Pressable,
   ActivityIndicator,
 } from "react-native";
-import React, { useState, useEffect } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { DataStore } from "aws-amplify";
@@ -14,40 +14,43 @@ import { useBasketContext } from "../../contexts/BasketContext";
 
 const DishDetailsScreen = () => {
   const [dish, setDish] = useState(null);
-  const [quantity, setQuatity] = useState(1);
+  const [quantity, setQuantity] = useState(1);
 
   const navigation = useNavigation();
   const route = useRoute();
   const id = route.params?.id;
+
   const { addDishToBasket } = useBasketContext();
+
   useEffect(() => {
-    if (id) DataStore.query(Dish, id).then(setDish);
+    if (id) {
+      DataStore.query(Dish, id).then(setDish);
+    }
   }, [id]);
+
   const onAddToBasket = async () => {
     await addDishToBasket(dish, quantity);
     navigation.goBack();
   };
+
   const onMinus = () => {
     if (quantity > 1) {
-      setQuatity(quantity - 1);
+      setQuantity(quantity - 1);
     }
   };
+
   const onPlus = () => {
-    setQuatity(quantity + 1);
+    setQuantity(quantity + 1);
   };
 
   const getTotal = () => {
     return (dish.price * quantity).toFixed(2);
   };
+
   if (!dish) {
-    return (
-      <ActivityIndicator
-        size={"large"}
-        color="gray"
-        style={{ alignItems: "center", justifyContent: "center", flex: 1 }}
-      />
-    );
+    return <ActivityIndicator size="large" color="gray" />;
   }
+
   return (
     <View style={styles.page}>
       <Text style={styles.name}>{dish.name}</Text>
@@ -83,7 +86,7 @@ const styles = StyleSheet.create({
   page: {
     flex: 1,
     width: "100%",
-    paddingVertical: 40,
+    paddingVertical: 40, // temp fix
     padding: 10,
   },
   name: {
@@ -101,8 +104,8 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: "row",
-    justifyContent: "center",
     alignItems: "center",
+    justifyContent: "center",
     marginTop: 50,
   },
   quantity: {
