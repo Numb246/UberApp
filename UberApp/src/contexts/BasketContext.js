@@ -1,16 +1,19 @@
-import React, { createContext, useState, useEffect, useContext } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 import { DataStore } from "aws-amplify";
 import { Basket, BasketDish } from "../models";
 import { useAuthContext } from "./AuthContext";
+
 const BasketContext = createContext({});
 
 const BasketContextProvider = ({ children }) => {
   const { dbUser } = useAuthContext();
+
   const [restaurant, setRestaurant] = useState(null);
   const [basket, setBasket] = useState(null);
   const [basketDishes, setBasketDishes] = useState([]);
+
   const totalPrice = basketDishes.reduce(
-    (sum, basketDish) => sum + basketDish.quatity * basketDish.Dish.price,
+    (sum, basketDish) => sum + basketDish.quantity * basketDish.Dish.price,
     restaurant?.deliveryFee
   );
 
@@ -27,23 +30,27 @@ const BasketContextProvider = ({ children }) => {
       );
     }
   }, [basket]);
+
   const addDishToBasket = async (dish, quantity) => {
+    // get the existing basket or create a new one
     let theBasket = basket || (await createNewBasket());
-    console.log(dish);
+
+    // create a BasketDish item and save to Datastore
     const newDish = await DataStore.save(
-      new BasketDish({ quatity: quantity, Dish: dish, basketID: theBasket.id })
+      new BasketDish({ quantity, Dish: dish, basketID: theBasket.id })
     );
 
     setBasketDishes([...basketDishes, newDish]);
   };
 
   const createNewBasket = async () => {
-    const newBasket = DataStore.save(
+    const newBasket = await DataStore.save(
       new Basket({ userID: dbUser.id, restaurantID: restaurant.id })
     );
     setBasket(newBasket);
     return newBasket;
   };
+
   return (
     <BasketContext.Provider
       value={{

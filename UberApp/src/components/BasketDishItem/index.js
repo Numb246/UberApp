@@ -1,15 +1,11 @@
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { View, Text, StyleSheet, FlatList } from "react-native";
 
 const BasketDishItem = ({ basketDish }) => {
   console.log(basketDish);
   return (
     <View style={styles.row}>
       <View style={styles.quantityContainer}>
-        <Text>
-          {basketDish.quatity != null
-            ? basketDish.quatity
-            : basketDish.quantity}
-        </Text>
+        <Text>{basketDish.quantity}</Text>
       </View>
       <Text style={{ fontWeight: "600" }}>{basketDish.Dish.name}</Text>
       <Text style={{ marginLeft: "auto" }}>$ {basketDish.Dish.price}</Text>
@@ -22,11 +18,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginVertical: 15,
+    paddingHorizontal: 10,
   },
+
   quantityContainer: {
     backgroundColor: "lightgray",
     paddingHorizontal: 5,
-    paddingVertical: 1,
+    paddingVertical: 2,
     marginRight: 10,
     borderRadius: 3,
   },

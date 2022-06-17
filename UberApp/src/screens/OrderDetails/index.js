@@ -1,11 +1,12 @@
 import { View, Text, Image, FlatList, ActivityIndicator } from "react-native";
+import BasketDishItem from "../../components/BasketDishItem";
 
 import orders from "../../../assets/data/orders.json";
 
 import styles from "./styles";
-import BasketDishItem from "../../components/BasketDishItem";
 import { useOrderContext } from "../../contexts/OrderContext";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+
 const order = orders[0];
 
 const OrderDetailsHeader = ({ order }) => {
@@ -13,11 +14,10 @@ const OrderDetailsHeader = ({ order }) => {
     <View>
       <View style={styles.page}>
         <Image source={{ uri: order.Restaurant.image }} style={styles.image} />
+
         <View style={styles.container}>
           <Text style={styles.title}>{order.Restaurant.name}</Text>
-          <Text style={styles.subtitle}>
-            {order.status} &#8226; 2 days ago{" "}
-          </Text>
+          <Text style={styles.subtitle}>{order.status} &#8226; 2 days ago</Text>
 
           <Text style={styles.menuTitle}>Your orders</Text>
         </View>
@@ -29,12 +29,15 @@ const OrderDetailsHeader = ({ order }) => {
 const OrderDetails = ({ id }) => {
   const [order, setOrder] = useState();
   const { getOrder } = useOrderContext();
+
   useEffect(() => {
     getOrder(id).then(setOrder);
   }, []);
+
   if (!order) {
     return <ActivityIndicator size={"large"} color="gray" />;
   }
+
   return (
     <FlatList
       ListHeaderComponent={() => <OrderDetailsHeader order={order} />}
@@ -43,4 +46,5 @@ const OrderDetails = ({ id }) => {
     />
   );
 };
+
 export default OrderDetails;

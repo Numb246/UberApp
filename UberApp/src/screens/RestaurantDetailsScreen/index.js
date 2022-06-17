@@ -1,21 +1,18 @@
 import { useState, useEffect } from "react";
 import {
-  StyleSheet,
-  Text,
   View,
-  Image,
   FlatList,
   ActivityIndicator,
   Pressable,
+  Text,
 } from "react-native";
-import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import DishListItem from "../../components/DishListItem";
-import HeaderTitle from "./Header";
+import Header from "./Header";
 import styles from "./styles";
 import { useRoute, useNavigation } from "@react-navigation/native";
-import { Restaurant, Dish, BasketDish } from "../../models";
 import { DataStore } from "aws-amplify";
+import { Restaurant, Dish } from "../../models";
 import { useBasketContext } from "../../contexts/BasketContext";
 
 const RestaurantDetailsPage = () => {
@@ -38,13 +35,13 @@ const RestaurantDetailsPage = () => {
       return;
     }
     setBasketRestaurant(null);
-    //fetch the restaurant with the id
+    // fetch the restaurant with the id
     DataStore.query(Restaurant, id).then(setRestaurant);
 
     DataStore.query(Dish, (dish) => dish.restaurantID("eq", id)).then(
       setDishes
     );
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     setBasketRestaurant(restaurant);
@@ -57,7 +54,7 @@ const RestaurantDetailsPage = () => {
   return (
     <View style={styles.page}>
       <FlatList
-        ListHeaderComponent={() => <HeaderTitle restaurant={restaurant} />}
+        ListHeaderComponent={() => <Header restaurant={restaurant} />}
         data={dishes}
         renderItem={({ item }) => <DishListItem dish={item} />}
         keyExtractor={(item) => item.name}
